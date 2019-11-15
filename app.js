@@ -5,12 +5,19 @@ let nextId = 1;
 
 const rootEl = document.getElementById('root');
 
+
 const formEl = document.createElement('form');
 formEl.className = 'form-inline';
 
 formEl.innerHTML = `
     <input type="text" class="form-control mb-2 mr-sm-2" data-id="url">
     <input type="text" class="form-control mb-2 mr-sm-2" data-id="text">
+    <select type="text" class="form-control mb-2 mr-sm-2" data-id="type">
+        <option value="regular">Обычный</option>
+        <option value="image">Изображение</option>
+        <option value="audio">Аудио</option>
+        <option value="video">Видео</option>
+    </select>
     <button class=btn btn-light mb-2" data-action="add">OK</button>
 `;
 
