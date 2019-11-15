@@ -11,9 +11,8 @@ formEl.className = 'form-inline';
 
 formEl.innerHTML = `
     <input type="text" class="form-control mb-2 mr-sm-2" data-id="url">
-    <input type="text" class="form-control mb-2 mr-sm-2" data-id="text">
     <select type="text" class="form-control mb-2 mr-sm-2" data-id="type">
-        <option value="regular">Обычный</option>
+        <option value="regular">Текст</option>
         <option value="image">Изображение</option>
         <option value="audio">Аудио</option>
         <option value="video">Видео</option>
@@ -22,24 +21,24 @@ formEl.innerHTML = `
 `;
 
 const urlEl = formEl.querySelector('[data-id=url]');
+
 const textEl = formEl.querySelector('[data-id=text]');
 formEl.addEventListener('submit', (event) => {
     event.preventDefault();
 
     const url = urlEl.value;
-    const text = textEl.value;
+    
 
     const post = {
         id: nextId++,
         url,
-        text,
         likes: 0,
     };
     posts.push(post);
     rebuildList(postsEl, posts);
 
     urlEl.value = '';
-    textEl.value = '';
+    
     urlEl.focus();
 });
 
@@ -60,7 +59,7 @@ function rebuildList(containerEl, items) {
         el.dataset.id = `post-${item.id}`;
         el.innerHTML = `
             <img src="${item.url}" class="rounded" width="50" height="50">
-            ${item.text}
+        
             <span class="badge badge-secondary">${item.likes}</span>
             <button type="button" class="btn btn-primary btn-sm" data-action="like">like</button>
             <button type="button" class="btn btn-primary btn-sm" data-action="dislike">dislike</button>
