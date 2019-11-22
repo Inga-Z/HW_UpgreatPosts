@@ -60,28 +60,54 @@ function rebuildList(containerEl, items) {
         postsEl.className = 'list-group-item';
         postsEl.dataset.id = `post-${item.id}`;
        
-        if (item.type == 'image') {
+        if (item.type === 'image') {
             postsEl.innerHTML = `
+            <div class = "col px-md-7">
                 <img src="${item.value}" class="rounded" width="50" height="50">
-                <button class="btn btn-primary" data-action="like"> ❤ ${item.likes}</button>
-                <button class="btn btn-primary" data-action="dislike">dislike</button>
+                <div class = "card-body">
+                    <button class="btn btn-primary" data-action="like"> ❤ ${item.likes}</button>
+                    <button class="btn btn-primary" data-action="dislike">dislike</button>
+                </div>
+            </div>
+                `;
+        }
+        else if (item.type === 'video') {
+            postsEl.innerHTML = `
+            <div class = "col px-md-5">
+                <div class = "card-img-topcard-img-top embed-responsive embed-responsive-16by9 mb-2">
+                    <video src = "${item.value}" class = "embed-responsive-item" controls>
+                </div>
+                <div class = "col">
+                    <button data-action = "like" class = "btn btn-primary">❤ ${item.likes} </button>
+                    <button class="btn btn-primary" data-action="dislike">dislike</button>
+                </div>
+            </div>
+                `;
+         }
+        else if (item.type === 'audio') {
+            postsEl.innerHTML = `
+            <div class = "col px-md-5">
+                <div class = "card-img-topcard-img-top embed-responsive embed-responsive-16by9 mb-2">
+                    <audio src = "${item.value}" class = "embed-responsive-item" controls>
+                </div>
+                <div class ="col">
+                    <button data-action = "like" class = "btn btn-primary">❤ ${item.likes}</button>
+                    <button class="btn btn-primary" data-action="dislike">dislike</button>
+                </div>
+            </div>
+                `;
+        }
+        else if (item.type === 'regular') {
+            postsEl.innerHTML = `
+            <div class = "card">
+                <div class = "card-body">
+                    <p class="card-text">${item.value}</p>
+                    <button data-action = "like" class = "btn btn-primary">❤ ${item.likes}</button>
+                    <button class="btn btn-primary" data-action="dislike">dislike</button>
+                </div>
+            </div>
             `;
         }
-        else if (item.type == 'video') {
-            postsEl.innerHTML = `
-                <video src = "${item.value}" class = "embed-responsive-item" controls>
-                <button class="btn btn-primary" data-action="like"> ❤ ${item.likes}</button>
-                <button class="btn btn-primary" data-action="dislike">dislike</button>
-             `;
-         }
-        else if (item.type == 'audio') {
-            postsEl.innerHTML = `
-                <audio src = "${item.value}" class = "embed-responsive-item" controls>
-                <button class="btn btn-primary" data-action="like"> ❤ ${item.likes}</button>
-                <button class="btn btn-primary" data-action="dislike">dislike</button>
-             `;
-        }
-
 
         postsEl.querySelector('[data-action=like]').addEventListener('click', (event) => {
             item.likes++;
@@ -99,8 +125,7 @@ function rebuildList(containerEl, items) {
             })
             rebuildList(containerEl, items);
         });
-
-    
+            
         containerEl.insertBefore(postsEl, containerEl.nextSibling);
     }
 };
