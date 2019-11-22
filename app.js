@@ -6,6 +6,7 @@ let nextId = 1;
 const rootEl = document.getElementById('root');
 
 const formEl = document.createElement('form');
+
 formEl.className = 'form-inline';
 
 formEl.innerHTML = `
